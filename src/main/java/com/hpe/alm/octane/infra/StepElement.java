@@ -1,5 +1,6 @@
 package com.hpe.alm.octane.infra;
 
+import gherkin.formatter.model.Result;
 import gherkin.formatter.model.Step;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -38,9 +39,7 @@ public class StepElement implements GherkinSerializer {
         Element step = doc.createElement(STEP_TAG_NAME);
 
         step.setAttribute("name", _name);
-        if (_status != null && !_status.isEmpty()) {
-            step.setAttribute("status", _status);
-        }
+        step.setAttribute("status", _status != null && !_status.isEmpty() ? _status : Result.UNDEFINED.getStatus());
 
         String duration = _duration != null ? _duration.toString() : "0";
         step.setAttribute("duration", duration);
